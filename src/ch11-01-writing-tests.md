@@ -549,7 +549,7 @@ test`.
 {{#quiz ../quizzes/ch11-01-writing-tests.toml}}
 
 [concatenating]: ch08-02-strings.html#concatenating-with--or-format
-[bench]: ../unstable-book/library-features/test.html
+[bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
 [ignoring]: ch11-02-running-tests.html#ignoring-tests-unless-specifically-requested
 [subset]: ch11-02-running-tests.html#running-a-subset-of-tests-by-name
 [controlling-how-tests-are-run]: ch11-02-running-tests.html#controlling-how-tests-are-run

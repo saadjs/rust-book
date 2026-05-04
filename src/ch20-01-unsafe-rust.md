@@ -562,12 +562,12 @@ Rust’s official guide for `unsafe`, [The Rustonomicon][nomicon].
 {{#quiz ../quizzes/ch19-01-unsafe-rust.toml}}
 
 [permission-violations]: ch04-02-references-and-borrowing.html#the-borrow-checker-finds-permission-violations
-[ABI]: ../reference/items/external-blocks.html#abi
+[ABI]: https://doc.rust-lang.org/reference/items/external-blocks.html#abi
 [the-slice-type]: ch04-04-slices.html#the-slice-type
 [constants]: ch03-01-variables-and-mutability.html#declaring-constants
 [send-and-sync]: ch16-04-extensible-concurrency-sync-and-send.html
 [the-slice-type]: ch04-03-slices.html#the-slice-type
-[unions]: ../reference/items/unions.html
+[unions]: https://doc.rust-lang.org/reference/items/unions.html
 [miri]: https://github.com/rust-lang/miri
 [editions]: appendix-05-editions.html
 [nightly]: appendix-07-nightly-rust.html

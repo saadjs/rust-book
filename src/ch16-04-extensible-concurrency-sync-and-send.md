@@ -102,12 +102,8 @@ run on multiple threads without the kinds of hard-to-track-down bugs common in
 other languages. Concurrent programming is no longer a concept to be afraid of:
 Go forth and make your programs concurrent, fearlessly!
 
-<<<<<<< HEAD
 {{#quiz ../quizzes/ch16-04-extensible-concurrency-send-and-sync.toml}}
 
 [sharing-a-mutext-between-multiple-threads]: ch16-03-shared-state.html#sharing-a-mutext-between-multiple-threads
-=======
-[shared-access]: ch16-03-shared-state.html#shared-access-to-mutext
->>>>>>> upstream/main
-[nomicon]: ../nomicon/index.html
+[nomicon]: https://doc.rust-lang.org/nomicon/index.html
 [mutex-guards-are-not-send]: https://github.com/rust-lang/rust/issues/23465#issuecomment-82730326

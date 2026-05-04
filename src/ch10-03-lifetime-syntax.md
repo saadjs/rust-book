@@ -654,4 +654,4 @@ Rust so that you can make sure your code is working the way it should.
 [references-and-borrowing]: ch04-02-references-and-borrowing.html#references-and-borrowing
 [lifetime-permissions]: ch04-02-references-and-borrowing.html#permissions-are-returned-at-the-end-of-a-references-lifetime
 [string-slices-as-parameters]: ch04-04-slices.html#string-slices-as-parameters
-[reference]: ../reference/trait-bounds.html
+[reference]: https://doc.rust-lang.org/reference/trait-bounds.html
