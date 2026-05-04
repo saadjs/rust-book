@@ -248,7 +248,7 @@ let v = vec!["Hello world"];
 ```
 
 Type inference is trickier for trait objects. For example, say we tried to factor 
-the `components` array in Listing 17-9 into a separate variable, like this:
+the `components` array in Listing 18-9 into a separate variable, like this:
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -261,7 +261,7 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 17-11: Factoring the components array causes a type error</span>
+<span class="caption">Listing 18-11: Factoring the components array causes a type error</span>
 
 This refactor causes the program to no longer compile! The compiler rejects this program with
 the following error:
@@ -281,26 +281,26 @@ error[E0308]: mismatched types
     | |_____^ expected `SelectBox`, found `Button`
 ```
 
-In Listing 17-09, the compiler understands that the `components` vector must have the type
-`Vec<Box<dyn Draw>>` because that's specified in the `Screen` struct definition. But in Listing 17-11,
+In Listing 18-09, the compiler understands that the `components` vector must have the type
+`Vec<Box<dyn Draw>>` because that's specified in the `Screen` struct definition. But in Listing 18-11,
 the compiler loses that information at the point where `components` is defined. To fix the issue, you
 have to give a hint to the type inference algorithm. That can either be via an explicit cast on
 any element of the vector, like this:
 
 ```rust,ignore
-  let components = vec![
-        Box::new(SelectBox { /* .. */ }) as Box<dyn Draw>,
-        Box::new(Button { /* .. */ }),
-  ];
+let components = vec![
+    Box::new(SelectBox { /* .. */ }) as Box<dyn Draw>,
+    Box::new(Button { /* .. */ }),
+];
 ```
 
 Or it can be via a type annotation on the let-binding, like this:
 
 ```rust,ignore
-  let components: Vec<Box<dyn Draw>> = vec![
-        Box::new(SelectBox { /* .. */ }),
-        Box::new(Button { /* .. */ }),
-  ];
+let components: Vec<Box<dyn Draw>> = vec![
+    Box::new(SelectBox { /* .. */ }),
+    Box::new(Button { /* .. */ }),
+];
 ```
 
 In general, it is good to be aware that using trait objects can cause a worse developer experience for
