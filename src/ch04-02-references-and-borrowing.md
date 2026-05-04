@@ -201,14 +201,14 @@ v.push(4);
 
 Let's walk through each line:
 
-1. After `let mut v = (...)`, the variable `v` has been initialized (indicated by <i class="fa fa-level-up"></i>). It gains @Perm[gained]{read}@Perm[gained]{write}@Perm[gained]{own} permissions (the plus sign indicates gain).
+1. After `let mut v = (...)`, the variable `v` has been initialized (indicated by <i class="fa fa-arrow-turn-up"></i>). It gains @Perm[gained]{read}@Perm[gained]{write}@Perm[gained]{own} permissions (the plus sign indicates gain).
 2. After `let num = &v[2]`, the data in `v` has been **borrowed** by `num` (indicated by <i class="fa fa-arrow-right"></i>). Three things happen:
    - The borrow removes @Perm[lost]{write}@Perm[lost]{own} permissions from `v` (the slash indicates loss). `v` cannot be written or owned, but it can still be read.
    - The variable `num` has gained @Perm{read}@Perm{own} permissions. `num` is not writable (the missing @Perm{write} permission is shown as a dash <span class="perm write">‒</span>) because it was not marked `let mut`.
    - The **place** `*num` has gained the @Perm{read} permission.
 3. After `println!(...)`, then `num` is no longer in use, so `v` is no longer borrowed. Therefore:
    - `v` regains its @Perm{write}@Perm{own} permissions (indicated by <i class="fa fa-rotate-left"></i>).
-   - `num` and `*num` have lost all of their permissions (indicated by <i class="fa fa-level-down"></i>).
+   - `num` and `*num` have lost all of their permissions (indicated by <i class="fa fa-arrow-turn-down"></i>).
 4. After `v.push(4)`, then `v` is no longer in use, and it loses all of its permissions.
 
 Next, let's explore a few nuances of the diagram. First, why do you see both `num` and `*num`? Because accessing data through a reference is not the same as manipulating the reference itself. For example, say we declared a reference to a number with `let mut`:
