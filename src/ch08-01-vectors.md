@@ -157,7 +157,6 @@ ending up in that situation.
 
 ### Iterating Over the Values in a Vector
 
-<!-- BEGIN INTERVENTION: e8da8773-8df2-4279-8c27-b7e9eda1dddd -->
 To access each element in a vector in turn, we would iterate through all of the
 elements rather than use indices to access one at a time. Listing 8-7 shows how
 to use a `for` loop to get immutable references to each element in a vector of
@@ -171,7 +170,7 @@ to use a `for` loop to get immutable references to each element in a vector of
 
 </Listing>
 
-To read the number that `n_ref` refers to, we have to use the `*` dereference operator to get to the value in `n_ref` before we can add 1 to it, as covered in ["Dereferencing a Pointer Accesses Its Data"][deref].
+To read the number that `i` refers to, we have to use the `*` dereference operator to get to the value in `i` before we can add 1 to it, as covered in ["Dereferencing a Pointer Accesses Its Data"][deref].
 
 We can also iterate over mutable references to each element in a mutable vector
 in order to make changes to all the elements. The `for` loop in Listing 8-8
@@ -185,8 +184,7 @@ will add `50` to each element.
 
 </Listing>
 
-To change the value that the mutable reference refers to, we again use the `*` dereference operator to get to the value in `n_ref` before we can use the `+=` operator. 
-<!-- END INTERVENTION -->
+To change the value that the mutable reference refers to, we again use the `*` dereference operator to get to the value in `i` before we can use the `+=` operator. 
 
 {{#quiz ../quizzes/ch08-01-vec-sec1.toml}}
 
