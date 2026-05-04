@@ -14,9 +14,6 @@ env:
   AQUASCOPE_VERSION: 0.4.0
   AQUASCOPE_TOOLCHAIN: nightly-2026-05-01
 
-env:
-  MDBOOK_VERSION: 0.5.1
-
 jobs:
   test:
     name: Run tests
