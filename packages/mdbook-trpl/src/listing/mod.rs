@@ -1,10 +1,9 @@
 use anyhow::anyhow;
 use html_parser::Dom;
-use mdbook::{
-    book::Book,
+use mdbook_preprocessor::{
+    book::{Book, BookItem},
     errors::Result,
-    preprocess::{Preprocessor, PreprocessorContext},
-    BookItem,
+    Preprocessor, PreprocessorContext,
 };
 use pulldown_cmark::{html, Event};
 use pulldown_cmark_to_cmark::cmark;
@@ -66,6 +65,7 @@ impl Preprocessor for TrplListing {
         let mut errors = vec![];
         book.for_each_mut(|item| {
             if let BookItem::Chapter(ref mut chapter) = item {
+                eprintln!("{}!", chapter.path.as_ref().unwrap().display());
                 match rewrite_listing(&chapter.content, mode) {
                     Ok(rewritten) => chapter.content = rewritten,
                     Err(reason) => errors.push(anyhow!(reason)),
@@ -80,8 +80,8 @@ impl Preprocessor for TrplListing {
         }
     }
 
-    fn supports_renderer(&self, renderer: &str) -> bool {
-        renderer == "html" || renderer == "markdown" || renderer == "test"
+    fn supports_renderer(&self, renderer: &str) -> Result<bool> {
+        Ok(renderer == "html" || renderer == "markdown" || renderer == "test")
     }
 }
 

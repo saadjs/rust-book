@@ -82,7 +82,7 @@ impl Preprocessor for TrplListing {
 
         let mut errors: Vec<String> = vec![];
         book.for_each_mut(|item| {
-            if let BookItem::Chapter(ref mut chapter) = item {
+            if let BookItem::Chapter(ref mut chapter) = item {                
                 match rewrite_listing(&chapter.content, mode) {
                     Ok(rewritten) => chapter.content = rewritten,
                     Err(reason) => errors.push(reason),

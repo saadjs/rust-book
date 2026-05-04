@@ -9,10 +9,10 @@ on:
 env:
   RUST_LIB_BACKTRACE: 1
   RAYON_NUM_THREADS: 1
-  MDBOOK_VERSION: 0.4.51
-  MDBOOK_QUIZ_VERSION: 0.4.0
-  AQUASCOPE_VERSION: 0.3.8
-  AQUASCOPE_TOOLCHAIN: nightly-2024-12-15
+  MDBOOK_VERSION: 0.5.2
+  MDBOOK_QUIZ_VERSION: 0.5.0
+  AQUASCOPE_VERSION: 0.4.0
+  AQUASCOPE_TOOLCHAIN: nightly-2026-05-01
 
 jobs:
   test:
@@ -35,8 +35,8 @@ jobs:
     - name: Install Rust
       run: |
         rustup set profile minimal
-        rustup toolchain install 1.85 -c rust-docs
-        rustup default 1.85
+        rustup toolchain install 1.90 -c rust-docs
+        rustup default 1.90
 
     - name: Install Depot
       run: curl https://raw.githubusercontent.com/cognitive-engineering-lab/depot/main/scripts/install.sh | sh
