@@ -2,6 +2,8 @@
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
+> **Fork note:** This is a fork of the [Brown University interactive Rust Book](https://github.com/cognitive-engineering-lab/rust-book) that adds a simple client-side bookmarks feature. Read it at <https://saadjs.github.io/rust-book/>.
+
 This repository contains the source of "The Rust Programming Language" book, specifically an experimental branch that supports interactive features like quizzes.
 
 **If you discovered an issue in at <https://rust-book.cs.brown.edu/>, PLEASE report the issue on THIS REPOSITORY and not elsewhere.**
