@@ -1,0 +1,200 @@
+/* Bookmarks + resume UI. Uses mdBook theme variables so it adapts to the
+   light / rust / coal / navy / ayu themes automatically. */
+
+.bookmarks-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#bookmarks-button {
+  position: relative;
+}
+
+.bookmark-icon {
+  width: 0.9em;
+  height: 1.15em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  stroke: none;
+}
+
+#bookmarks-button.is-active {
+  color: var(--icons-hover, #b7410e);
+}
+
+/* --- dropdown ----------------------------------------------------------- */
+
+#bookmarks-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  min-width: 260px;
+  max-width: 340px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: 6px;
+  background: var(--theme-popup-bg, var(--bg, #fff));
+  border: 1px solid var(--theme-popup-border, rgba(0, 0, 0, 0.2));
+  color: var(--fg, #333);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+#bookmarks-dropdown.open {
+  display: block;
+}
+
+.bm-section-label {
+  padding: 8px 8px 4px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.bm-toggle-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.bm-toggle-current:hover,
+.bm-item:hover {
+  background: var(--theme-hover, rgba(0, 0, 0, 0.08));
+}
+
+.bm-item-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.bm-item {
+  display: block;
+  flex: 1 1 auto;
+  padding: 7px 8px;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.bm-item-title {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bm-resume {
+  font-weight: 600;
+}
+
+.bm-remove {
+  flex: 0 0 auto;
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.5;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.bm-remove:hover {
+  opacity: 1;
+  background: var(--theme-hover, rgba(0, 0, 0, 0.08));
+}
+
+.bm-empty {
+  padding: 4px 8px 10px;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* --- resume chip -------------------------------------------------------- */
+
+#resume-chip {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  max-width: 320px;
+  padding: 4px 4px 4px 12px;
+  border-radius: 999px;
+  background: var(--theme-popup-bg, var(--bg, #fff));
+  border: 1px solid var(--theme-popup-border, rgba(0, 0, 0, 0.2));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  color: var(--fg, #333);
+}
+
+.resume-chip-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.resume-chip-link .bookmark-icon {
+  flex: 0 0 auto;
+  color: var(--icons-hover, #b7410e);
+}
+
+.resume-chip-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.resume-chip-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.resume-chip-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resume-chip-close {
+  flex: 0 0 auto;
+  margin-left: 6px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.resume-chip-close:hover {
+  opacity: 1;
+  background: var(--theme-hover, rgba(0, 0, 0, 0.08));
+}

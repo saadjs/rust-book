@@ -6,9 +6,13 @@ title = "The Rust Programming Language"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
 
 [output.html]
+# Served from GitHub Pages as a project site under /rust-book/. This makes the
+# 404 page and other absolute links resolve correctly under that subpath.
+site-url = "/rust-book/"
 additional-css = [
   "ferris.css",
-  "theme/semantic-notes.css", 
+  "bookmarks.css",
+  "theme/semantic-notes.css",
   "theme/listing.css",
   "theme/2018-edition.css",
   # Not doing any research right now, so no need to pester users with a form.
@@ -17,6 +21,7 @@ additional-css = [
 ]
 additional-js = [
   "ferris.js",
+  "bookmarks.js",
   # "js-extensions/packages/telemetry/dist/index.js",
   # "js-extensions/packages/consent-form/dist/index.js",
   "js-extensions/packages/feedback/dist/index.js",
