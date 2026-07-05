@@ -17,7 +17,60 @@
 
   var STORAGE_KEY = "rust-book:bookmarks:v1";
   var LAST_READ_KEY = "rust-book:last-read:v1";
-  var CHIP_DISMISS_KEY = "rust-book:resume-chip-dismissed";
+  // Set once on the first page load of a tab-session. Its presence means this
+  // tab has already "opened the book", so the cover must never auto-resume.
+  var SESSION_OPENED_KEY = "rust-book:resumed-this-session";
+
+  // --- auto-resume (Kindle-style "open to last-read page") -----------------
+
+  /**
+   * Is the requested URL the book's bare front door (site root)? Only the root
+   * auto-resumes; every named page — including the intro reached directly — is
+   * treated as an intentional destination and left alone.
+   *
+   * @returns {boolean}
+   */
+  function isBareRoot() {
+    var path = location.pathname;
+    return path === "" || path === "/" || /\/(?:index\.html)?$/.test(path);
+  }
+
+  /**
+   * Redirect the cold-open of a tab to the reader's last-read page. Runs
+   * synchronously at script parse time — before DOMContentLoaded and any UI
+   * injection — so it needs no DOM and the cover barely flashes. Fires at most
+   * once per tab-session, and only when that first load is the bare root.
+   */
+  (function maybeResume() {
+    var alreadyOpened;
+    try {
+      alreadyOpened = sessionStorage.getItem(SESSION_OPENED_KEY);
+      // Mark this tab as opened regardless, so a later root visit within the
+      // same tab (e.g. clicking "home") shows the cover instead of bouncing.
+      sessionStorage.setItem(SESSION_OPENED_KEY, "1");
+    } catch (e) {
+      return; // storage disabled: never redirect
+    }
+    if (alreadyOpened) return; // not a cold open
+    if (!isBareRoot()) return; // only the front door resumes
+
+    var last;
+    try {
+      var raw = localStorage.getItem(LAST_READ_KEY);
+      last = raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return;
+    }
+    if (!last || !last.url) return;
+
+    // Don't bounce if last-read *is* the cover. The root serves the first page
+    // (experiment-intro); compare on its href to avoid a redirect to self.
+    var target = String(last.url);
+    if (/experiment-intro\.html?$/.test(target)) return;
+
+    // replace() keeps the root out of history, so Back leaves the book cleanly.
+    location.replace(target);
+  })();
 
   // Apple SF Symbols "bookmark" glyphs (viewBox shared). The outline path has
   // an inner cutout so it renders hollow when filled; the fill path is solid.
@@ -325,47 +378,13 @@
     });
   }
 
-  // Floating "resume" chip shown when the last-read page differs from the
-  // current one. Dismissible for the session so it never nags.
-  function injectResumeChip() {
-    var lastRead = previousRead;
-    if (!lastRead) return;
-    if (page && lastRead.key === page.key) return;
-    try {
-      if (sessionStorage.getItem(CHIP_DISMISS_KEY)) return;
-    } catch (e) {
-      /* ignore */
-    }
-
-    var chip = document.createElement("div");
-    chip.id = "resume-chip";
-    chip.innerHTML =
-      '<a href="' +
-      escapeAttr(lastRead.url) +
-      '" class="resume-chip-link">' +
-      iconSvg(true) +
-      '<span class="resume-chip-text"><span class="resume-chip-label">Continue reading</span>' +
-      '<span class="resume-chip-title">' +
-      escapeHtml(lastRead.title) +
-      "</span></span></a>" +
-      '<button type="button" class="resume-chip-close" aria-label="Dismiss">&times;</button>';
-    document.body.appendChild(chip);
-
-    var closeBtn = chip.querySelector(".resume-chip-close");
-    if (closeBtn) {
-      closeBtn.addEventListener("click", function () {
-        chip.remove();
-        try {
-          sessionStorage.setItem(CHIP_DISMISS_KEY, "1");
-        } catch (e) {
-          /* ignore */
-        }
-      });
-    }
-  }
-
   function recordLastRead() {
     if (!page) return;
+    // Never let the bare front door overwrite a real reading position: if the
+    // resume redirect was suppressed (e.g. not a cold open) and we're sitting
+    // on the root, recording it would clobber last-read and poison future
+    // resumes. Named pages (incl. experiment-intro reached directly) still record.
+    if (isBareRoot()) return;
     try {
       localStorage.setItem(
         LAST_READ_KEY,
@@ -386,7 +405,6 @@
     // chip/dropdown can offer the previous location.
     previousRead = loadLastRead();
     injectButton();
-    injectResumeChip();
     render();
     recordLastRead();
   }
